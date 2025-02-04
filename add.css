@@ -1,0 +1,46 @@
+/* Initially hide the business buttons container */
+#businessBtnsContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the container */
+    z-index: 90;
+    display: none; /* Hidden initially */
+    text-align: center; /* Center text in the container */
+    flex-direction: row; /* Align buttons horizontally by default */
+    justify-content: center; /* Center buttons horizontally */
+    align-items: center; /* Center buttons vertically */
+}
+
+/* When the 'show' class is added, make the container visible */
+#businessBtnsContainer.show {
+    display: flex; /* Display the buttons when triggered */
+}
+
+/* Style for the business buttons */
+.business-btn {
+    background: #000;
+    color: #fff;
+    padding: 15px 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    white-space: nowrap; /* Prevent text wrapping to a new line */
+}
+
+/* Tablet screen styling */
+@media (max-width: 1024px) {
+    #businessBtnsContainer {
+        top: 40%; /* Keep the buttons centered for tablets */
+    }
+}
+
+/* Mobile screen styling */
+@media (max-width: 480px) {
+    #businessBtnsContainer {
+        flex-direction: column; /* Align buttons vertically */
+        top: 70%; /* Push them down a little more for mobile */
+    }
+}

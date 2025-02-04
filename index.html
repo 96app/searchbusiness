@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Business</title>
+    <link rel="icon" type="image/x-icon" href="/images/icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="maps.css">
+    <link rel="stylesheet" href="Register.css">
+    <link rel="stylesheet" href="ads.css">
+    <link rel="stylesheet" href="location.css">
+    <link rel="stylesheet" href="footer-form.css">
+    <link rel="stylesheet" href="add.css">
+    <link rel="stylesheet" href="Regbusiness.css">
+    <link rel="stylesheet" href="open-advertform.css">
+</head>
+<body>
+
+  <!-- Blurry background for the page content -->
+  <div id="blurryOverlay" class="overlay"></div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="overlay">
+      <div class="loading-message">
+          <h2>Location Access</h2>
+          <p>Please grant location access to continue.</p>
+      </div>
+  </div>
+
+  <!-- Denied Access Message -->
+  <div id="accessDeniedOverlay" class="overlay">
+      <div class="denied-message">
+          <h2>Access Denied</h2>
+          <p>You must allow location access to proceed.</p>
+      </div>
+  </div>
+    
+    <div class="center-wrapper">
+
+        <div class="title">
+            <img src="/logos/search-01.png" alt="">
+            <p>Redefining how you find what you need.</p>
+        </div>
+    
+        <div class="search-container">
+            
+            <div class="top-right-buttons">
+                <div class="google-btn" id="authButton">
+                    <img src="/images/google.png" alt="Google Icon" class="google-icon">
+                    <div class="google-login">Login with Google</div>
+                </div>
+                <div id="message" style="display: none;">
+                    <p></p> <!-- Removed Welcome message -->
+                </div> 
+            
+            
+        <!-- Google Icon Button -->
+            <div class="google-icon-btn" id="googleIconBtn">
+                <img src="/images/icons8-add-48.png" alt="Google Icon">
+            </div>
+            
+        <!-- Container for loading the new form -->
+        <div id="formContainer"></div>
+            <!-- Business Buttons Container (Initially Hidden) -->
+            <div id="businessBtnsContainer" class="hidden">
+                <!-- Business buttons -->
+                <button id="addBusinessBtn" class="business-btn">Add your business</button>
+                <button hidden id="advertiseBusinessBtn" class="business-btn" onclick="window.location.href='advertiseBusinessForm.html';">Advertise your business</button>
+                
+
+            </div>
+            <!-- Add Business Form Container -->
+<div id="addBusinessFormContainer">
+    <div class="form-content">
+        <span class="close-form-btn">&times;</span>
+        <h2>ADD YOUR BUSINESS</h2>
+
+        <form id="addBusinessForm" action="https://formsubmit.co/c40e7b48e88f8c4a77b332410fe21c5c" method="POST">
+            <label for="businessName">Business Name*</label>
+            <input type="text" id="businessName" name="businessName" required>
+        
+            <label for="businessRegNo">Business Registration Number</label>
+            <input type="text" id="businessRegNo" name="businessRegNo">
+        
+            <label for="businessDescription">Business Description*</label>
+            <textarea id="businessDescription" name="businessDescription" required></textarea>
+        
+            <label for="phone">Phone*</label>
+            <input type="tel" id="phone" name="phone" required>
+        
+            <label for="email">Email Address*</label>
+            <input type="email" id="email" name="email" required>
+        
+            <label for="town">Town*</label>
+            <input type="text" id="town" name="town" required>
+        
+            <label for="area">Area*</label>
+            <input type="text" id="area" name="area" required>
+        
+            <label for="businessLogo">Business Logo*</label>
+            <input type="file" id="businessLogo" name="businessLogo" accept="image/png, image/jpg, image/jpeg" required>
+        
+            <label for="googleMapScreenshot">Google Maps Location Screenshot*</label>
+            <input type="file" id="googleMapScreenshot" name="googleMapScreenshot" accept="image/png, image/jpg, image/jpeg, application/pdf" required>
+        
+            <button type="button" id="uploadButton">Upload Images</button>
+            <button type="submit" id="submitFormButton" style="display:none;">Submit Form</button>
+        </form>
+        
+
+        <p>Note: This application can take up to 48 hours for your business to be successfully registered. If we find your information not matching, your registration may not be successful.</p>
+    </div>
+</div>
+
+<script>
+    document.getElementById('uploadButton').addEventListener('click', function(event) {
+        event.preventDefault();  // Prevent the default form submission
+    
+        var fileInput1 = document.getElementById('businessLogo');
+        var fileInput2 = document.getElementById('googleMapScreenshot');
+    
+        // Check if both files are selected
+        if (fileInput1.files.length === 0 || fileInput2.files.length === 0) {
+            alert('Please upload both images.');
+            return;
+        }
+    
+        // FormData for the first image (business logo)
+        var formData1 = new FormData();
+        formData1.append('image', fileInput1.files[0]);
+    
+        // FormData for the second image (Google Map Screenshot)
+        var formData2 = new FormData();
+        formData2.append('image', fileInput2.files[0]);
+    
+        var apiKey = 'e6ca4afe06b2ef4374626035b46bd315';  // Replace with your ImgBB API Key
+    
+        // Upload the first image (business logo) to ImgBB
+        fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+            method: 'POST',
+            body: formData1,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                var image1Url = data.data.url; // for business logo
+    
+                // Upload the second image (Google Map screenshot) to ImgBB
+                fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+                    method: 'POST',
+                    body: formData2,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        var image2Url = data.data.url; // for Google Maps screenshot
+    
+                        // Store the image URLs in hidden fields or form data
+                        var form = document.getElementById('addBusinessForm');
+                        var businessLogoUrlInput = document.createElement('input');
+                        businessLogoUrlInput.type = 'hidden';
+                        businessLogoUrlInput.name = 'businessLogoUrl';
+                        businessLogoUrlInput.value = image1Url;
+                        form.appendChild(businessLogoUrlInput);
+    
+                        var googleMapScreenshotUrlInput = document.createElement('input');
+                        googleMapScreenshotUrlInput.type = 'hidden';
+                        googleMapScreenshotUrlInput.name = 'googleMapScreenshotUrl';
+                        googleMapScreenshotUrlInput.value = image2Url;
+                        form.appendChild(googleMapScreenshotUrlInput);
+    
+                        // Now trigger the form submission
+                        document.getElementById('submitFormButton').click();
+                    } else {
+                        console.error('Google Maps screenshot upload failed:', data);
+                        alert('Google Maps screenshot upload failed. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error uploading Google Map screenshot:', error);
+                    alert('Error uploading Google Map screenshot.');
+                });
+    
+            } else {
+                console.error('Business logo upload failed:', data);
+                alert('Business logo upload failed. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error uploading business logo:', error);
+            alert('Error uploading business logo.');
+        });
+    });
+    </script>
+
+        
+            </div>
+
+            <form class="search-form" id="searchForm" novalidate>
+                <!-- Location Search Field -->
+                <div class="search-bar location">
+                    <div id="ghostText" class="ghost-text">Enter location</div>
+                    <input type="text" id="location" placeholder="Enter location" required>
+                </div>
+        
+                <!-- Category Search Field -->
+                <div class="search-bar category">
+                    <div id="queryGhostText" class="ghost-text">Enter category or business name</div>
+                    <input type="text" id="query" placeholder="Enter category or business name" required>
+                </div>
+        
+                <!-- Search Button -->
+                <button class="search-btn" type="submit">Search</button>
+            </form>
+        
+            <!-- Error Message Display -->
+            <div id="error-message" style="color: red; display: none; text-align: center; margin-top: 1rem;">
+                Your search fields are empty :(
+            </div>
+            <div class="ai-hints">
+                <p>Need inspiration? Try searching for <span>“Top Futuristic Trends”</span> or <span>“Best Tools for 2025”</span></p>
+            </div>
+    
+            <footer>
+                <div class="footer-content">
+                    <p>Powered by <a href="https://96studios.co.za">96 Studios</a></p>
+                </div>
+                <img src="/images/icons8-message-96 (1).png" alt="Message Us" class="footer-img" id="footerImage">
+            </footer>
+            
+           <!-- Hidden form -->
+            <div id="contactForm" class="modal hidden">
+                <div class="modal-content">
+                    <span class="close-btn" id="closeContactForm">&times;</span>
+                    <h2>Contact Us</h2>
+                    <form id="contactMessageForm" class="contact-form" method="POST" action="https://formsubmit.co/c40e7b48e88f8c4a77b332410fe21c5c" >
+                        <label for="companyNameInput">Company Name*</label>
+                        <input type="text" id="companyNameInput" name="companyName" required class="contact-input">
+                        
+                        <label for="emailInput">Email Address*</label>
+                        <input type="email" id="emailInput" name="email" required class="contact-input">
+                        
+                        <label for="messageInput">Message</label>
+                        <textarea id="messageInput" name="message" rows="5" class="contact-textarea"></textarea>
+                        
+                        <button type="submit" class="contact-btn">Send Message</button>
+                    </form>
+                </div>
+            </div> 
+        </div>
+        
+    </div>
+
+    <div class="results-page" id="resultsPage" style="display: none;">
+        <div class="results-header">
+            <button id="backButton" class="back-button">Back</button>
+            <h2 id="resultsTitle"></h2>
+            <p id="resultsSubtitle"></p>
+        </div>
+        <div id="results" class="results-grid"></div>
+    </div>
+
+      <script src="ads.js"></script>
+      <script src="searchResults.js"></script>
+      <script src="business-profile.js"></script>
+      <script src="popupAdsCycle.js"></script>
+      <script src="footer-form.js"></script>
+      <script src="add.js"></script>
+      <script src="Regbusiness.js"></script>
+      <script src="Login.js"></script>
+
+      <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+
+
+      <!--LOGIN SCRIPT-->
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+    
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDq0o0gL6Euph_gNc5Jfba9dJVnIR94nvQ",
+            authDomain: "auth-c62ed.firebaseapp.com",
+            projectId: "auth-c62ed",
+            storageBucket: "auth-c62ed.appspot.com",
+            messagingSenderId: "144319314648",
+            appId: "1:144319314648:web:330edf164d0c3699a3b5ad"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const provider = new GoogleAuthProvider();
+    
+        const authButton = document.getElementById("authButton");
+        const message = document.getElementById("message");
+        const googleIcon = document.querySelector(".google-icon");
+    
+        // Update button and message based on user state
+    const updateUI = (user) => {
+        if (user) {
+            authButton.querySelector(".google-login").textContent = "Logout";
+            message.style.display = "none"; // Removed the Welcome message
+            googleIcon.src = user.photoURL; // Display the user's profile image
+            googleIcon.alt = user.displayName || "User's Profile Picture";
+            googleIcon.style.borderRadius = "90px"; // Apply the 90px border-radius to the profile image
+        } else {
+            authButton.querySelector(".google-login").textContent = "Login with Google";
+            message.style.display = "none"; // Hide message when logged out
+        }
+    };
+    
+        // Sign-in function
+        const userSignIn = async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                console.log("User signed in:", result.user);
+            } catch (error) {
+                console.error("Sign-in error:", error.message);
+            }
+        };
+    
+        // Sign-out function
+        const userSignOut = async () => {
+            try {
+                await signOut(auth);
+                alert("You have signed out successfully!");
+            } catch (error) {
+                console.error("Sign-out error:", error.message);
+            }
+        };
+    
+        // Toggle authentication state
+        authButton.addEventListener("click", () => {
+            const user = auth.currentUser;
+            if (user) {
+                userSignOut();
+            } else {
+                userSignIn();
+            }
+        });
+    
+        // Monitor authentication state
+        onAuthStateChanged(auth, (user) => {
+            updateUI(user);
+        });
+
+         // Protect advertiseBusinessForm.html page on load
+    document.addEventListener('DOMContentLoaded', () => {
+        const user = auth.currentUser;
+        if (!user && window.location.pathname.includes('advertiseBusinessForm.html')) {
+            // If not logged in, redirect to the home page
+            window.location.href = "index.html";
+        }
+    });
+
+    // Add event listeners for button clicks
+    const addBusinessBtn = document.getElementById("addBusinessBtn");
+    const advertiseBusinessBtn = document.getElementById("advertiseBusinessBtn");
+
+    // Check if the user is logged in before allowing access to the form
+    const checkSignIn = (e, redirectUrl) => {
+        const user = auth.currentUser;
+        if (!user) {
+            e.preventDefault();  // Prevent navigation
+            alert("You must be signed in to add a business.");
+            if (redirectUrl) {
+                window.location.href = redirectUrl;  // Optional: Redirect to login page
+            }
+        }
+    };
+
+    addBusinessBtn.addEventListener('click', (e) => {
+        checkSignIn(e, 'index.html'); // Prevent navigation if not signed in
+    });
+
+    advertiseBusinessBtn.addEventListener('click', (e) => {
+        checkSignIn(e, 'index.html'); // Prevent navigation if not signed in
+    });
+
+    
+    </script>
+
+      <!-----ALLOW LOCATION SECTION-->
+      <script>
+ document.addEventListener('DOMContentLoaded', () => {
+    // Show loading overlay when page loads
+    showLoadingOverlay();
+    requestLocationPermission();
+});
+
+function showLoadingOverlay() {
+    document.getElementById('loadingOverlay').style.display = 'flex'; // Show the loading overlay
+}
+
+function hideLoadingOverlay() {
+    document.getElementById('loadingOverlay').style.display = 'none'; // Hide loading overlay
+}
+
+function showDeniedOverlay() {
+    document.getElementById('accessDeniedOverlay').style.display = 'flex'; // Show Access Denied message
+    document.getElementById('blurryOverlay').style.display = 'block'; // Apply blurry overlay to background
+    document.querySelector('.content').classList.add('blur-body'); // Blur the content behind
+}
+
+function hideDeniedOverlay() {
+    document.getElementById('accessDeniedOverlay').style.display = 'none'; // Hide Access Denied message
+    document.getElementById('blurryOverlay').style.display = 'none'; // Remove blurry overlay
+    document.querySelector('.content').classList.remove('blur-body'); // Remove the blur effect
+}
+
+function requestLocationPermission() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                // Location granted: Hide loading, show content
+                console.log('Location granted:', position);
+                hideLoadingOverlay();
+                document.querySelector('.content').style.display = 'block'; // Show content
+            },
+            error => {
+                // Location denied: Show denied overlay
+                console.error('Location access denied:', error);
+                hideLoadingOverlay();
+                showDeniedOverlay();
+            }
+        );
+    } else {
+        alert('Geolocation is not supported by this browser.');
+        hideLoadingOverlay();
+    }
+}
+
+function showBlurryOverlay() {
+    const overlay = document.getElementById('blurryOverlay');
+    overlay.style.display = 'block';  // Show the overlay when you need to blur the background
+}
+
+function hideBlurryOverlay() {
+    const overlay = document.getElementById('blurryOverlay');
+    overlay.style.display = 'none';  // Hide the overlay when the background should not be blurred
+}
+
+      </script>
+    
+      <!-----ALLOW LOCATION SECTION END-->
+    
+
+    
+</body>
+</html>

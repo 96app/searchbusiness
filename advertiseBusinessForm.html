@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdvertiseBusinessForm</title>
+    <link rel="icon" type="image/x-icon" href="/images/icon.png">
+    <link rel="stylesheet" href="advertiseBusinessForm.css">
+
+    <style>
+.upload-container {
+    text-align: center;
+    margin: 30px auto;
+}
+
+.upload-area {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    width: 60%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+
+.upload-area:hover {
+    background-color: #f0f0f0;
+    border-color: #333;
+}
+
+.upload-text {
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.upload-area p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#fileInput {
+    display: none;
+}
+
+.preview-list {
+    margin-top: 20px;
+    list-style-type: none;
+    padding: 0;
+}
+.preview-item {
+    position: relative; /* This ensures the button stays in the right position */
+    display: inline-block;
+    width: 100px;       /* Preview item width */
+    height: 100px;      /* Preview item height */
+    margin-right: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+.preview-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+.preview-item span {
+    display: block;
+    font-size: 12px;
+    color: #555;
+    margin-top: 5px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 5px;
+    background-color: #ccc;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.progress {
+    width: 0;
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 5px;
+}
+.remove-btn {
+    position: absolute;  /* Position it inside the container */
+    top: 5px;            /* 5px from the top */
+    width: 18px;         /* Small size for the button */
+    height: 18px;        /* Small size for the button */
+    font-size: 14px;     /* Font size for the "X" */
+    background-color: #ff4d4d;  /* Red color for the button */
+    color: white;        /* White color for the text */
+    border: none;        /* No border */
+    border-radius: 50%;  /* Round button */
+    cursor: pointer;     /* Pointer cursor on hover */
+    display: flex;
+    justify-content: center; /* Center the "X" inside the button */
+    align-items: center;    /* Vertically center the "X" */
+}
+.remove-btn:hover {
+    background-color: #e60000;
+}
+
+h4 {
+   text-align: center;
+}
+    </style>
+</head>
+<body>
+   <!-- Advertise Business Form Container -->
+   <div id="advertiseBusinessFormContainer">
+       <div class="form-content">
+        <button class="close-form-btn" onclick="window.location.href='index.html';">&times;</button>
+        <h2>ADVERTISE YOUR BUSINESS</h2>
+        <form id="advertiseBusinessForm" action="https://formsubmit.co/c40e7b48e88f8c4a77b332410fe21c5c" method="POST">
+            <!-- Form Fields: Business name, Phone, Email, etc. -->
+            <input type="text" name="businessName" placeholder="Business name*" required />
+            <input type="text" name="phone" placeholder="Phone*" required />
+            <input type="email" name="email" placeholder="Email*" required />
+            <input type="text" name="advertTitle" placeholder="Advert title*" required />
+            <textarea name="advertMessage" placeholder="Advert message*" required></textarea>
+            <input type="text" name="location" placeholder="Location*" required />
+            <input type="text" name="area" placeholder="Area*" required />
+            <input type="text" name="zipCode" placeholder="Zip Code*" required />
+        
+            <select name="range" id="range">
+                <option value="5" data-amount="15">5 miles - R15.00</option>
+                <option value="10" data-amount="30">10 miles - R30.00</option>
+                <option value="20" data-amount="60">20 miles - R60.00</option>
+                <option value="30" data-amount="90">30 miles - R90.00</option>
+                <option value="40" data-amount="120">40 miles - R120.00</option>
+                <option value="50" data-amount="150">50 miles - R150.00</option>
+                <option value="60" data-amount="180">60 miles - R180.00</option>
+                <option value="MAX" data-amount="400">South Africa max - R400.00</option>
+            </select>
+        
+            <select name="period" id="period">
+                <option value="1D" data-amount="5">1 day - R5.00</option>
+                <option value="3D" data-amount="10">3 days - R10.00</option>
+                <option value="5D" data-amount="30">5 days - R30.00</option>
+                <option value="1W" data-amount="35">1 week - R35.00</option>
+                <option value="3W" data-amount="100">3 weeks - R100.00</option>
+                <option value="5W" data-amount="175">5 weeks - R175.00</option>
+            </select>
+        
+            <h4>Upload Your Advert Logo <br> (PNG/JPG/JPEG, Max 20MB each)</h4>
+            <div class="upload-container">
+                <div class="upload-area" id="uploadArea">
+                    <p>Drag & Drop files here or <span class="upload-text" id="browseText">Browse</span> to select</p>
+                    <input type="file" name="advertImages" accept="image/png, image/jpeg" onchange="checkFileSizes(this)" id="fileInput" multiple />
+                    <div id="filePreviews" class="preview-list"></div> <!-- Preview area -->
+                </div>
+            </div>
+        
+            <div id="totalAmountSection">
+                <p>Total Amount: <span id="totalAmount">R0.00</span></p>
+            </div>
+        
+            <div id="bankDetailsSection">
+                <h3>Bank Details</h3>
+                <p>Bank Name: Example Bank</p>
+                <p>Account Number: 123456789</p>
+                <p>Branch Code: 012345</p>
+                <p>Reference: Your Business Name</p>
+            </div>
+        
+            <button type="submit" id="submitBtn">Submit</button>
+        </form>
+        
+        <script>
+            document.getElementById('advertiseBusinessForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent form from submitting immediately
+            
+                var fileInput = document.getElementById('fileInput');
+                var files = fileInput.files;
+            
+                // Validate that files are selected
+                if (files.length === 0) {
+                    alert('Please upload at least one image.');
+                    return;
+                }
+            
+                var apiKey = 'e6ca4afe06b2ef4374626035b46bd315';  // Your imgBB API key
+                var uploadedUrls = [];
+            
+                var uploadPromises = [];
+                for (let i = 0; i < files.length; i++) {
+                    var formData = new FormData();
+                    formData.append('image', files[i]);
+            
+                    // Upload each image to imgBB
+                    var uploadPromise = fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+                        method: 'POST',
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            uploadedUrls.push(data.data.url); // Store uploaded image URL
+                        } else {
+                            console.error('Image upload failed:', data);
+                            alert('Failed to upload an image.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error uploading image:', error);
+                        alert('Error uploading image.');
+                    });
+            
+                    uploadPromises.push(uploadPromise);
+                }
+            
+                // Wait for all uploads to complete
+                Promise.all(uploadPromises).then(() => {
+                    // After all uploads complete, add the image URLs to the form as hidden inputs
+                    var form = document.getElementById('advertiseBusinessForm');
+            
+                    uploadedUrls.forEach((url, index) => {
+                        var input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'advertImagesUrl[]';  // Using array for multiple images
+                        input.value = url;
+                        form.appendChild(input);
+                    });
+            
+                    // Submit the form to Formspree
+                    form.submit();
+                });
+            });
+            </script>
+        
+
+           <div id="successMessage" style="display: none;">
+               Thank you for advertising with us, we will check your information and get back to you.
+           </div>
+       </div>
+   </div>
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const rangeSelect = document.getElementById('range');
+    const periodSelect = document.getElementById('period');
+    const totalAmountDisplay = document.getElementById('totalAmount');
+
+    // Function to calculate total amount
+    function calculateTotal() {
+        // Get the amounts from the selected range and period options
+        const rangeAmount = parseFloat(rangeSelect.options[rangeSelect.selectedIndex].getAttribute('data-amount'));
+        const periodAmount = parseFloat(periodSelect.options[periodSelect.selectedIndex].getAttribute('data-amount'));
+
+        // Calculate the total amount
+        const totalAmount = rangeAmount + periodAmount;
+
+        // Update the displayed total amount
+        totalAmountDisplay.textContent = `R${totalAmount.toFixed(2)}`;
+    }
+
+    // Event listeners to recalculate the total when the range or period changes
+    rangeSelect.addEventListener('change', calculateTotal);
+    periodSelect.addEventListener('change', calculateTotal);
+
+    // Initial calculation on page load
+    calculateTotal();
+});
+
+   </script>
+
+   <!--CHECK FILE SIZE-->
+   <script>
+document.getElementById("browseText").addEventListener("click", function() {
+    document.getElementById("fileInput").click();
+});
+
+function checkFileSizes(input) {
+    const files = input.files;
+    let valid = true;
+    const filePreviews = document.getElementById("filePreviews");
+    
+    // Loop through each selected file
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+
+        // Check file size limit (65MB)
+        if (file.size > 20 * 1024 * 1024) { // 20MB
+            alert(`The file "${file.name}" exceeds the 20MB limit.`);
+            valid = false;
+            break; // Stop further checks if any file exceeds the limit
+        }
+
+        // Create a preview of the file
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.classList.add("preview-img");
+
+            const fileName = document.createElement("span");
+            fileName.textContent = file.name;
+
+            const removeBtn = document.createElement("button");
+            removeBtn.textContent = "Remove";
+            removeBtn.classList.add("remove-btn");
+            removeBtn.onclick = function() {
+                // Remove the image preview item when clicked
+                filePreviews.removeChild(previewItem);
+            };
+
+            const previewItem = document.createElement("li");
+            previewItem.classList.add("preview-item");
+            previewItem.appendChild(img);
+            previewItem.appendChild(fileName);
+            previewItem.appendChild(removeBtn);
+
+            filePreviews.appendChild(previewItem);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Clear the input value if any file exceeds the size limit
+    if (!valid) {
+        input.value = '';
+    }
+}
+
+// Drag and Drop functionality
+const uploadArea = document.getElementById("uploadArea");
+
+uploadArea.addEventListener("dragover", function(e) {
+    e.preventDefault();
+    uploadArea.style.backgroundColor = "#e6e6e6"; // Change color when dragging over
+});
+
+uploadArea.addEventListener("dragleave", function() {
+    uploadArea.style.backgroundColor = "#f9f9f9"; // Reset color
+});
+
+uploadArea.addEventListener("drop", function(e) {
+    e.preventDefault();
+    uploadArea.style.backgroundColor = "#f9f9f9"; // Reset color after drop
+
+    const files = e.dataTransfer.files;
+    const fileInput = document.getElementById("fileInput");
+
+    // Manually add files from the drop event to the input
+    fileInput.files = files;
+
+    // Process the files
+    checkFileSizes(fileInput);
+});
+   </script>
+
+   <!--CHECK LOGIN STATUS-->
+
+   
+   <script type="module">
+    // Import Firebase Authentication
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+
+    // Firebase config (use your own credentials)
+    const firebaseConfig = {
+        apiKey: "AIzaSyDq0o0gL6Euph_gNc5Jfba9dJVnIR94nvQ",
+        authDomain: "auth-c62ed.firebaseapp.com",
+        projectId: "auth-c62ed",
+        storageBucket: "auth-c62ed.appspot.com",
+        messagingSenderId: "144319314648",
+        appId: "1:144319314648:web:330edf164d0c3699a3b5ad"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app); // Use the initialized app to get the auth instance
+
+    // Check if the user is signed in
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            // If no user is logged in, redirect to login or home page
+            window.location.replace("index.html"); // Redirect to login page or homepage
+        }
+    });
+</script>
+
+
+</body>
+</html>

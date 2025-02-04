@@ -1,0 +1,71 @@
+/* Container for Top-Right Buttons */
+.top-right-buttons {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between buttons */
+    cursor: pointer;
+}
+
+
+/* Google Button Container */
+.google-btn {
+    display: flex; /* Use flexbox for horizontal alignment */
+    align-items: center; /* Align icon and text vertically */
+    gap: 10px; /* Space between the icon and the text */
+    background-color: #ffffff; /* Button background */
+    border: 1px solid #ddd; /* Optional border */
+    border-radius: 60px; /* Rounded corners */
+    padding: 0.5rem 1rem; /* Padding for the button */
+    cursor: pointer; /* Makes the button clickable */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Google Icon */
+.google-icon {
+    width: 24px; /* Adjust icon size */
+    height: 24px;
+}
+
+/* Google Login Text */
+.google-login {
+    font-size: 1rem; /* Adjust text size */
+    color: #444; /* Text color */
+    font-weight: bold; /* Optional bold styling */
+}
+
+/* Hover Effect for Button */
+.google-btn:hover {
+    background-color: #f7f7f7; /* Change background on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+
+
+
+/* Google Icon Button */
+.google-icon-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0.5rem;
+}
+
+.google-icon-btn img {
+    width: 40px; /* Adjust icon size */
+    height: 40px;
+}
+
+@media (max-width: 764px) {
+    .top-right-buttons {
+        top: 0;
+        right: 0px;
+        gap: 0.1px; /* Space between buttons */
+    }
+
+    .google-btn img {
+        width: 20px;
+        height: 20px;
+    }
+    
+}

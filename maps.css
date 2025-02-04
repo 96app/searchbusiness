@@ -1,0 +1,42 @@
+/* Ensure the iframe is responsive */
+.business iframe {
+    width: 100%; /* Makes iframe fit the business profile block */
+    height: 200px; /* Default height for desktop */
+    border: 0; /* Removes any border */
+    border-radius: 4px; /* Optional: Adds rounded corners */
+}
+
+/* Adjust iframe height for tablets */
+@media (max-width: 1024px) {
+    .business iframe {
+        height: 180px; /* Slightly shorter height for tablets */
+    }
+}
+
+/* Adjust iframe height for mobile */
+@media (max-width: 768px) {
+    .business iframe {
+        height: 150px; /* Compact height for mobile screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .business iframe {
+        height: 120px; /* Minimum height for very small screens */
+    }
+}
+
+/* Style for "View Larger Map" link */
+.business a {
+    display: block;
+    margin-top: 0.5rem;
+    color: blue;
+    text-decoration: underline;
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+.business a:hover {
+    color: darkblue;
+    text-decoration: none;
+}

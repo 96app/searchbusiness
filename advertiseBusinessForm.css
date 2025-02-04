@@ -1,0 +1,167 @@
+/* General Styles */
+ body {
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle, #eef1f7, #dce0ed);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+ }
+
+/* Ensure form container is full screen */
+#advertiseBusinessFormContainer {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(166,202,250,1) 0%, rgba(92,136,252,1) 34%, rgba(14,74,162,1) 100%);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto; /* Allow scrolling */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Form content styling */
+#advertiseBusinessFormContainer .form-content {
+    background: #fff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    margin: 20px 0;
+    max-height: 90vh;
+    overflow-y: auto; /* Allow scrolling within the form */
+}
+
+/* Close button */
+#advertiseBusinessFormContainer .close-form-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Form heading */
+#advertiseBusinessFormContainer h2 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Form inputs and buttons */
+#advertiseBusinessForm input,
+#advertiseBusinessForm textarea,
+#advertiseBusinessForm select,
+#advertiseBusinessForm button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Submit button */
+#advertiseBusinessForm button {
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+/* Submit button hover effect */
+#advertiseBusinessForm button:hover {
+    background: #333;
+}
+
+/* Small text for instructions or notes */
+small {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Success message */
+#advertiseBusinessFormContainer #successMessage {
+    font-size: 16px;
+    text-align: center;
+    color: #28a745; /* Green color */
+    display: none; /* Hidden by default */
+}
+
+/* Total Amount Section */
+#totalAmountSection {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Bank Details Section */
+#bankDetailsSection {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#bankDetailsSection h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #000;
+}
+
+#bankDetailsSection p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Styling for range and period dropdowns */
+#range, #period {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Styling for file input */
+input[type="file"] {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Styling for inputs and textareas */
+input[type="text"], input[type="email"], textarea {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Style for textarea */
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Add a small margin between sections */
+#advertiseBusinessForm div {
+    margin-bottom: 20px;
+}

@@ -1,0 +1,119 @@
+/* Basic styles for overlays */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;  /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure overlays are above everything */
+    background-color: rgba(0, 0, 0, 0.452);
+}
+
+/* Loading message styling */
+.loading-message {
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    padding: 40px;
+    border-radius: 90px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Denied message styling */
+.denied-message {
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    padding: 40px;
+    border-radius: 90px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Apply the blurry background effect */
+#blurryOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Optional: dark overlay to make blur effect stand out */
+    filter: blur(5px);  /* Apply blur to the background */
+    pointer-events: none; /* Make sure the blurred content is not interactable */
+    z-index: 998; /* Ensure this is below the overlays but above the content */
+}
+
+/* Content styling */
+.content {
+    position: relative; /* Ensure it doesn't block the overlays */
+    z-index: 1; /* Lower than overlays to allow visibility of popups */
+    transition: filter 0.3s ease; /* Smooth transition for blur */
+}
+
+/* Slide-in effect for loading and denied messages */
+@keyframes slideIn {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.loading-message, .denied-message {
+    animation: slideIn 0.8s ease-out;
+}
+
+/* General responsive styling for all overlays */
+@media screen and (max-width: 1024px) {
+    .loading-message,
+    .denied-message {
+        padding: 30px;
+        font-size: 18px;
+        border-radius: 20px;
+        max-width: 80%; /* Keep message box centered and proportionate */
+        text-align: center; /* Ensure text alignment is proper */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .loading-message,
+    .denied-message {
+        padding: 30px;
+        font-size: 14px;
+        border-radius: 80px;
+        max-width: 90%; /* Wider box for smaller devices */
+        text-align: center; /* Ensure proper alignment */
+    }
+
+    .overlay {
+        justify-content: center; /* Center the popup vertically */
+        align-items: center; /* Center the popup horizontally */
+        padding: 0; /* Remove unnecessary padding */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .loading-message,
+    .denied-message {
+        padding: 25px;
+        font-size: 10px;
+        border-radius: 60px;
+        max-width: 95%; /* Wider width for very small screens */
+        text-align: center; /* Ensure proper text alignment */
+    }
+
+    .overlay {
+        justify-content: center; /* Ensure popup is in the vertical center */
+        align-items: center; /* Ensure popup is in the horizontal center */
+        padding: 0; /* Remove padding that causes misalignment */
+    }
+
+    #blurryOverlay {
+        filter: blur(2px); /* Minimized blur for better performance */
+    }
+}

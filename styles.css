@@ -1,0 +1,499 @@
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle, #eef1f7, #dce0ed);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+      /* Wrapper for Centering Both Header and Search Container */
+.center-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontal center */
+    padding-top: 2rem; /* Add space from the top */
+    gap: rem; /* Optional: Space between header and search container */
+    height: auto; /* No need for full viewport height */
+}
+
+
+
+.title {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+        .title img {
+            display: flex;
+            position: relative;
+            width: 400px;
+            height: auto;
+            margin-bottom: -0px;
+
+        }
+
+        .title p {
+            font-size: 1.2rem;
+            color: #5f6368;
+            margin-top: 0; /* Removed extra space above p */
+        }
+
+
+        .results-page {
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .results-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .results-header h2 {
+            margin: 0;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .business {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 1rem;
+            text-align: left;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+        .business img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+        }
+        .business h3 {
+            margin: 0.5rem 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .business .verified-icon {
+            width: 15px;
+            height: 15px;
+        }
+        .business .actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .business .actions button {
+            padding: 0.5rem;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            flex: 1;
+        }
+        .business .actions button:hover {
+            background-color: #0056b3;
+        }
+        .search-bar input::placeholder {
+    color: transparent;  /* Make placeholder transparent */
+}
+
+        .business .report {
+            margin-top: 0.5rem;
+            color: red;
+            cursor: pointer;
+            text-align: right;
+        }
+        .business .report:hover {
+            text-decoration: underline;
+        }
+
+        
+        /* Search Container Styling */
+        .search-container {
+            width: 90%;
+            max-width: 650px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+
+/* Search Form (Wrapper for Fields) */
+.search-form {
+    display: flex;
+    flex-direction: column; /* Stacked by default on mobile */
+    gap: 10px;
+    width: 100%;
+}
+
+/* Location Search Field */
+.search-bar.location {
+    width: 100%;
+    max-width: 200px; /* Reduced width for location field */
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 50px;
+    padding: 0.8rem 1.5rem;
+    position: relative;
+    overflow: hidden; /* Prevent content from spilling out */
+}
+
+/* Category Search Field */
+.search-bar.category {
+    width: 100%;
+    max-width: 300px; /* Wider width for category field */
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 50px;
+    padding: 0.8rem 1.5rem;
+    position: relative;
+    overflow: hidden; /* Prevent content from spilling out */
+}
+
+.search-bar input {
+    flex: 1;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    padding-left: 2px;
+    background: transparent;
+    z-index: 2;
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Prevent text overflow */
+    text-overflow: ellipsis; /* Display ellipsis for overflowing text */
+    caret-color: black; /* Ensure cursor color is visible */
+}
+
+/* Input Field Scrolling */
+.search-bar input:focus {
+    white-space: nowrap;
+    overflow: auto; /* Allow scrolling when focused */
+    text-overflow: clip; /* Stop showing ellipsis while editing */
+}
+
+.search-bar .ghost-text {
+    position: absolute;
+    top: 50%;
+    left: 26px;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #ccc;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+/* Search Button Styling */
+.search-btn {
+    background: linear-gradient(90deg, #2997FA, #36B852, #F6C62E);  
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(66, 133, 244, 0.3);
+}
+
+/* Responsive Styling for Tablet and Desktop */
+@media (min-width: 768px) {
+    .search-form {
+        flex-direction: row; /* Arrange fields horizontally */
+        justify-content: space-between; /* Add space between elements */
+        align-items: center;
+        gap: 15px; /* Adjust spacing for horizontal layout */
+    }
+
+    .search-bar {
+        flex: none; /* Prevent fields from growing unnecessarily */
+    }
+
+    .search-bar.location {
+        max-width: 200px; /* Further reduce width on larger screens */
+
+    }
+
+    .search-bar.category {
+        max-width: 330px; /* Slightly smaller than default for a balanced layout */
+
+    }
+
+    .search-btn {
+        flex-shrink: 0; /* Prevent the button from shrinking */
+    }
+}
+
+
+        /* AI Hints */
+        .ai-hints {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #6a6c6f;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .ai-hints span {
+            background: linear-gradient(90deg, #4285F4, #FBBC05, #EA4335);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 500;
+        }
+        
+        /* Subtle Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+/* Footer Box */
+footer {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 20px;
+    background-color: black; /* Footer background */
+    color: #757575;
+    font-size: 0.75rem;
+    padding: 5px 20px;
+    border-radius: 40px;
+    z-index: 10; /* Ensure it stays above other elements */
+}
+
+/* Footer Text Styling */
+.footer-content {
+    display: inline-block;
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Image Styling */
+.footer-img {
+    position: absolute; /* Separate from the footer's background */
+    bottom: 1.5rem; /* Align vertically with the footer */
+    left: calc(20px - 50% + 10px); /* Position right of the footer box */
+    top: 7px;
+    width: 35px; /* Adjust size */
+    height: 35px;
+    cursor: pointer; /* Makes it clickable */
+    animation: wave-animation 4s infinite; /* Trigger animation every 4 seconds */
+}
+
+/* Keyframes for wave animation */
+@keyframes wave-animation {
+    0%, 75% {
+        transform: rotate(0deg);
+    }
+    80% {
+        transform: rotate(15deg);
+    }
+    85% {
+        transform: rotate(-15deg);
+    }
+    90% {
+        transform: rotate(10deg);
+    }
+    95% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+ 
+/*------------ RESPONSIVE --------------*/
+
+
+html, body {
+    overflow-x: hidden;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.back-button {
+    position: absolute; /* Enables positioning relative to the nearest positioned ancestor */
+    top: 10px; /* Distance from the top of the container/page */
+    left: 10px; /* Distance from the left of the container/page */
+    background-color: #1e183f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 900; /* Ensures it stays above other elements */
+}
+
+.back-button:hover {
+    background-color: #3d3577;
+}
+@media (max-width: 768px) {
+    .back-button {
+        top: 20px; /* Adjust top spacing */
+        left: 20px; /* Adjust left spacing */
+        padding: 8px 16px; /* Slightly smaller padding for smaller screens */
+        font-size: 14px; /* Adjust font size for readability */
+    }
+}
+
+
+
+/*Mobile screens*/
+/*---------------- Mobile-Only Adjustments ----------------*/
+
+@media (max-width: 764px) {
+
+    body {
+        margin-left: 10px; /* Left margin */
+        margin-right: 10px; /* Right margin */
+    }
+
+    /* Wrapper for Centering Both Header and Search Container */
+    .center-wrapper {
+        padding-top: 1rem; /* Reduce top padding for mobile */
+    }
+
+    /* Title Image Styling */
+    .title img {
+        width: 250px; /* Adjust image size for mobile */
+        margin-bottom: -0px; /* Adjust margin for smaller screen */
+        margin-top: 20px;
+    }
+
+    .title p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .google-login {display: none;}
+
+
+    /* Search Container Styling */
+    .search-container {
+        width: 100%; /* Full width for search container */
+        max-width: none; /* Remove max-width restriction */
+        display: flex;
+        flex-direction: column; /* Stack items vertically on mobile */
+        gap: 15px; /* Adjust gap between fields */
+        align-items: center;
+    }
+
+    /* Search Form */
+    .search-form {
+        flex-direction: column; /* Stack search fields vertically */
+        width: 100%;
+        gap: 15px;
+    }
+
+    /* Location Search Field */
+    .search-bar.location {
+        width: 100%; /* Full width for location search */
+        max-width: 100%; /* Remove max-width for mobile */
+        padding: 0.8rem 1.2rem; /* Adjust padding */
+    }
+
+    /* Category Search Field */
+    .search-bar.category {
+        width: 100%; /* Full width for category search */
+        max-width: 100%; /* Remove max-width for mobile */
+        padding: 0.8rem 1.2rem; /* Adjust padding */
+    }
+
+    /* Input Fields */
+    .search-bar input {
+        font-size: 1rem; /* Slightly smaller font size */
+        padding-left: 10px; /* Adjust padding for input */
+    }
+
+    /* Ghost Text */
+    .search-bar .ghost-text {
+        font-size: 1rem; /* Adjust font size of placeholder */
+        left: 29px;
+    }
+
+    /* Search Button */
+    .search-btn {
+        width: 100%; /* Full width button on mobile */
+        padding: 1rem; /* Adjust padding for mobile */
+        font-size: 1.1rem; /* Slightly larger font size */
+        border-radius: 30px; /* Rounded edges for mobile */
+    }
+
+    /* Business Item */
+    .business {
+        width: 100%; /* Full width for business cards */
+        padding: 1rem;
+    }
+
+    /* Results Grid - Ensure Single Column on Mobile */
+    .results-grid {
+        grid-template-columns: 1fr; /* Single column grid for mobile */
+    }
+
+    /* Footer Box - Adjust Footer Image Position */
+    .footer-img {
+        left: -60px; /* Adjust left position for mobile */
+        top: 10px; /* Adjust top position for mobile */
+    }
+
+     footer {
+        scale: 80%;
+     }
+
+    /* Back Button */
+    .back-button {
+        padding: 8px 16px; /* Smaller padding for mobile */
+        font-size: 14px; /* Smaller font size */
+        top: 20px; /* Adjust top spacing */
+        left: 20px; /* Adjust left spacing */
+    }
+
+    .ai-hints {
+        line-height: 30px;
+    }
+}
+
+
+/* Centering the "No results" message */
+.results-grid {
+    display: flex;
+    justify-content: center; /* Align horizontally in the center */
+    align-items: center; /* Align vertically in the center */
+    height: 100%; /* Ensure it takes up full height for vertical centering */
+    text-align: center; /* Ensure the text is centered */
+}
+
+/* Optional: Customize the style of the message */
+.results-grid p {
+    font-size: 1rem;
+    color: #555; /* You can change the color to suit your design */
+    padding: 10px;
+}
