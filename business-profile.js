@@ -1,6 +1,6 @@
 const businesses = [
     {
-        logo: '/images/business-logos/96_studios_logo.png',
+        logo: './images/business-logos/96_studios_logo.png',
         name: '96 Studios',
         category: 'Art Studio',
         location: 'Polokwane',
@@ -13,7 +13,7 @@ const businesses = [
         verified: true
     },
     {
-        logo: '/images/business-logos/96_studios_logo.png',
+        logo: './images/business-logos/96_studios_logo.png',
         name: '96 Studios',
         category: 'Computer Repair',
         location: 'Polokwane',
@@ -26,7 +26,7 @@ const businesses = [
         verified: true
     },
     {
-        logo: '/images/business-logos/96_studios_logo.png',
+        logo: './images/business-logos/96_studios_logo.png',
         name: '96 Studios',
         category: 'Graphic designer',
         location: 'Polokwane',
